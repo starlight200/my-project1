@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CDP Chatbot</title>
+</head>
+<body>
+    <h1>CDP Chatbot</h1>
+    <input type="text" id="question" placeholder="Ask a question">
+    <button onclick="ask()">Ask</button>
+    <div id="answer"></div>
+    <script>
+        function ask() {
+            const question = document.getElementById('question').value;
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({question: question}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('answer').textContent = data.answer;
+            });
+        }
+    </script>
+</body>
+</html>
